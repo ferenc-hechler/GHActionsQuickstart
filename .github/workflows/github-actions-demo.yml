@@ -23,6 +23,7 @@ jobs:
     env:
       CUSTOM_VAR1: cv1
       CUSTOM_VARx: ${{ vars.CUSTOM_VAR2 }}
+      REPO_VARx: ${{ vars.REPO_VAR }}
     defaults:
       run:
         working-directory: ./scripts
