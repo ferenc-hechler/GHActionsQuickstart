@@ -4,7 +4,7 @@ on:
   push:
     # see https://www.techielass.com/trigger-a-github-action-workflow-when-a-folder-changes/
     paths:
-    - alpine-helm
+    - alpine-helm/**/*
 jobs:
   # see https://docs.docker.com/build/ci/github-actions/reproducible-builds/
   #     https://docs.docker.com/build/ci/github-actions/push-multi-registries/
