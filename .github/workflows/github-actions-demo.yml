@@ -1,41 +1,11 @@
-name: GitHub Actions Demo
-
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀🚀
-on: [push]
+name: Build Alpine-Helm Dockerimage
+run-name: Build Alpine-Helm Dockerimage
+on: 
+  push:
+    # see https://www.techielass.com/trigger-a-github-action-workflow-when-a-folder-changes/
+    paths:
+    - alpine-helm
 jobs:
-
-#  Explore-GitHub-Actions:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event.
-#      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-#      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-#      - name: Check out repository code
-#        uses: actions/checkout@v4
-#      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-#      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-#      - name: List files in the repository
-#        run: |
-#          ls ${{ github.workspace }}
-#      - run: echo "🍏 This job's status is ${{ job.status }}."
-  
-#  example-job:
-#    if: ${{ github.ref == 'refs/heads/ferenc-hechler-patch-1' }}
-#    runs-on: ubuntu-latest
-#    environment: DEVELOPENVIRONMENT
-#    env:
-#      CUSTOM_VAR1: cv1
-#      CUSTOM_VARx: ${{ vars.CUSTOM_VAR2 }}
-#      REPO_VARx: ${{ vars.REPO_VAR }}
-#    defaults:
-#      run:
-#        working-directory: ./scripts
-#    steps:
-#      - name: Check out the repository to the runner
-#        uses: actions/checkout@v4  
-#      - name: Run a script
-#        run: ./my-script.sh
-
   # see https://docs.docker.com/build/ci/github-actions/reproducible-builds/
   #     https://docs.docker.com/build/ci/github-actions/push-multi-registries/
   build-alpin-helm-dockerfile-job:
