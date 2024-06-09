@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: read versionnumber of secretsmanagement-operator from values.yaml
         id: get_smanop_version
         uses: mikefarah/yq@master
@@ -21,9 +24,6 @@ jobs:
       - name: Reuse a variable obtained in another step
         run: echo ${{ steps.get_smanop_version.outputs.result }}
         
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
 #      - name: Set up Docker Buildx
 #        uses: docker/setup-buildx-action@v3
 #      
