@@ -32,10 +32,10 @@ jobs:
           cat "$GITHUB_OUTPUT"
 
       - name: ifexists
-        if: steps.fileexists.output.test == true
+        if: steps.fileexists.outputs.test == true
         run: |
           echo "IFEXISTS"
-          echo "${{ steps.fileexists.output.test }}"    
+          echo "${{ steps.fileexists.outputs.test }}"    
           rm testfile.txt
           git config --global github-action-bot 'GitHub Action Bot'
           git config --global user.email 'github-action-bot@invalid.ignore'
@@ -44,10 +44,10 @@ jobs:
         
       
       - name: ifnotexists
-        if: steps.fileexists.output.test != true
+        if: steps.fileexists.outputs.test != true
         run: |
             echo "IFNOTEXISTS"
-            echo "${{ steps.fileexists.output.test }}"    
+            echo "${{ steps.fileexists.outputs.test }}"    
       
       - name: show files
         run: ls -la    
