@@ -32,7 +32,7 @@ jobs:
           cat "$GITHUB_OUTPUT"
 
       - name: ifexists
-        if: steps.fileexists.outputs.test == true
+        if: steps.fileexists.outputs.test == "true"
         run: |
           echo "IFEXISTS"
           echo "${{ steps.fileexists.outputs.test }}"    
@@ -44,7 +44,7 @@ jobs:
         
       
       - name: ifnotexists
-        if: steps.fileexists.outputs.test != true
+        if: steps.fileexists.outputs.test != "true"
         run: |
             echo "IFNOTEXISTS"
             echo "${{ steps.fileexists.outputs.test }}"    
