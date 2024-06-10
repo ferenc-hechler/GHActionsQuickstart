@@ -1,0 +1,31 @@
+name: Build Alpine-Helm Dockerimage
+run-name: modify on pr
+on: 
+  pull_request: 
+    types: 
+      - opened
+jobs:
+  modify_job:
+    runs-on: ubuntu-latest
+    steps:
+      # We'll need to check out the repository so that we can edit the README.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Let's get all the branches.
+
+      - uses: chrisdickinson/setup-yq@latest
+    
+      - shell: bash
+        run: |
+          PRERELEASE=$(yq '.secretsmanagement-operator.prereleaseSuffix' charts/canvas-oda/values.yaml)
+          echo "PRERELEASE=$PRERELEASE"
+          if [ -n "$PRERELEASE" ]
+          then
+              yq -i '.secretsmanagement-operator.prereleaseSuffix=""' charts/canvas-oda/values.yaml
+              git config --global user.name 'GitHub Action Bot'
+              git config --global user.email 'github-action-bot@invalid.ignore'
+              git commit -am "removed testfile.txt"
+              git push
+          fi          
+      
