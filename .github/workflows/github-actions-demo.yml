@@ -18,24 +18,24 @@ jobs:
           git status
       
       - name: check file exists
-        id: fileExists
+        id: fileexists
         shell: bash
         run: |
           if [ -f testfile.txt ]
           then
             echo "testfile.txt exists"
-            echo "result=true" >> "$GITHUB_OUTPUT"
+            echo "test=true" >> "$GITHUB_OUTPUT"
           else            
-            echo "result=false" >> "$GITHUB_OUTPUT"
+            echo "test=false" >> "$GITHUB_OUTPUT"
           fi
           echo "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
 
       - name: ifexists
-        if: steps.fileExists.output.result == true
+        if: steps.fileexists.output.test == true
         run: |
           echo "IFEXISTS"
-          echo "${{ steps.fileExists.output.result }}"    
+          echo "${{ steps.fileexists.output.test }}"    
           rm testfile.txt
           git config --global github-action-bot 'GitHub Action Bot'
           git config --global user.email 'github-action-bot@invalid.ignore'
@@ -44,10 +44,10 @@ jobs:
         
       
       - name: ifnotexists
-        if: steps.fileExists.output.result != true
+        if: steps.fileexists.output.test != true
         run: |
             echo "IFNOTEXISTS"
-            echo "${{ steps.fileExists.output.result }}"    
+            echo "${{ steps.fileexists.output.test }}"    
       
       - name: show files
         run: ls -la    
