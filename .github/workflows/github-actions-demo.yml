@@ -21,7 +21,7 @@ jobs:
         id: fileExists
         shell: bash
         run: |
-          if [ -n testfile.txt ]
+          if [ -f testfile.txt ]
           then
             echo "testfile.txt exists"
             echo "result=true" >> "$GITHUB_OUTPUT"
