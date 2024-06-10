@@ -23,9 +23,9 @@ jobs:
           if [ -n testfile.txt ]
           then
             echo "testfile.txt exists"
-            echo "result=true" >> $GITHUB_OUPUT
+            echo "result=true" >> "$GITHUB_OUTPUT"
           else            
-            echo "result=false" >> $GITHUB_OUPUT
+            echo "result=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: ifexists
