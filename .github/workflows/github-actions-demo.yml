@@ -19,6 +19,7 @@ jobs:
       
       - name: check file exists
         id: fileExists
+        shell: bash
         run: |
           if [ -n testfile.txt ]
           then
