@@ -33,5 +33,9 @@ jobs:
         if: steps.fileExists.output.result == true
         run: echo "IFEXISTS"    
       
+      - name: ifnotexists
+        if: steps.fileExists.output.result != true
+        run: echo "IFNOTEXISTS"    
+      
       - name: show files
         run: ls -la    
