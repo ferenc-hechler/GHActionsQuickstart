@@ -31,7 +31,14 @@ jobs:
 
       - name: ifexists
         if: steps.fileExists.output.result == true
-        run: echo "IFEXISTS"    
+        run: |
+          echo "IFEXISTS"
+          rm testfile.txt
+          git config --global github-action-bot 'GitHub Action Bot'
+          git config --global user.email 'github-action-bot@invalid.ignore'
+          git commit -am "removed testfile.txt"
+          git push
+        
       
       - name: ifnotexists
         if: steps.fileExists.output.result != true
