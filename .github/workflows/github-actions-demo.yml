@@ -28,6 +28,8 @@ jobs:
           else            
             echo "result=false" >> "$GITHUB_OUTPUT"
           fi
+          echo "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
 
       - name: ifexists
         if: steps.fileExists.output.result == true
