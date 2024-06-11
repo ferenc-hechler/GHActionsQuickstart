@@ -8,10 +8,8 @@ global:
   certificate:
     # -- Name of the certificate and webhook |
     appName: "compcrdwebhook"
-
 oda-crds:
   enabled: true
-
 canvas-namespaces:
   enabled: true
   certManagerNamespace: cert-manager
@@ -19,7 +17,6 @@ canvas-namespaces:
   istio:
     # --  Add Istion instrumentation label to the components namespace
     labelEnabledComponent: true
-
 cert-manager-init:
   nameOverride: ""
   fullnameOverride: ""
@@ -39,12 +36,10 @@ cert-manager-init:
   # In seconds
   # -- Time to wait CertManager to be ready to prevent issuer creation errors
   leaseWaitTimeonStartup: 80
-
   cert-manager:
     enabled: true
     installCRDs: true
     namespace: cert-manager
-
 keycloak:
   enabled: true
   image:
@@ -76,14 +71,13 @@ keycloak:
       http: 8083
   # -- Keycloak HTTP container port
   containerPorts: *portKeycloak
-
   # -- Create a myrealm realm with a seccon user
   keycloakConfigCli:
     enabled: true
     image:
       tag: 5.5.0-debian-11-r35
     backoffLimit: 1
-    command: [ "java", "-jar", "/opt/keycloak-config-cli.jar" ]
+    command: ["java", "-jar", "/opt/keycloak-config-cli.jar"]
     configuration:
       myrealm.json: |
         {
@@ -99,7 +93,6 @@ keycloak:
             }
            ]
         }
-
   ingress:
     enabled: false
     ingressClassName: "traefik"
@@ -107,7 +100,6 @@ keycloak:
       - name: keycloak.local
         path: /
         tls: false
-
 controller:
   deployment:
     controllerName: oda-controller-ingress
@@ -116,7 +108,7 @@ controller:
     imagePullPolicy: IfNotPresent
     istioGateway: true
     secconImage: tmforumodacanvas/security-listener:0.7.0
-    monitoredNamespaces: 'components'           # comma separated list of namespaces
+    monitoredNamespaces: 'components' # comma separated list of namespaces
     ingressClass:
       enabled: false
       name: nginx
@@ -131,13 +123,11 @@ controller:
     kcrealm: myrealm
     # -- Log level [python] (https://docs.python.org/3/library/logging.html
     loglevel: '20'
-    
 dependentapi-simple-operator:
   enabled: true
   image: mtr.devops.telekom.de/magenta_canvas/public:dependentapi-simple-operator-0.1.0
   imagePullPolicy: IfNotPresent
   loglevel: '20'
-
 canvas-vault:
   enabled: true
   # changing the auth_path requires changing the encrypted token in secretsmanagement-operator
@@ -160,7 +150,7 @@ canvas-vault:
     server:
       #image:
       #  repository: "dockerhub.devops.telekom.de/hashicorp/vault"
-    
+
       # Run Vault in "dev" mode. This requires no further setup, no state management,
       # and no initialization. This is useful for experimenting with Vault without
       # needing to unseal, store keys, et. al. All data is lost on restart - do not
@@ -168,10 +158,8 @@ canvas-vault:
       # See https://www.vaultproject.io/docs/concepts/dev-server.html to know more
       dev:
         enabled: true
-    
         # Set VAULT_DEV_ROOT_TOKEN_ID value
         devRootToken: "egalegal"
-    
       # Settings for the statefulSet used to run Vault.
       statefulSet:
         # Set the pod and container security contexts.
@@ -194,26 +182,24 @@ canvas-vault:
             runAsNonRoot: true
             runAsUser: 100
             supplementalGroups:
-            - 1000
-          container: 
+              - 1000
+          container:
             allowPrivilegeEscalation: false
             privileged: false
             readOnlyRootFilesystem: true
             capabilities:
               drop:
-              - ALL
+                - ALL
       # Enables debug logging.
       debug: true
-    
     injector:
       # True if you want to enable vault agent injection.
       # @default: global.enabled
       enabled: false
-
 secretsmanagement-operator:
   image: ocfork/secretsmanagement-operator
   version: 0.1.0
-  prereleaseSuffix: rc
+  prereleaseSuffix: ""
   #imagePullPolicy: IfNotPresent
   imagePullPolicy: Always
   sidecarImage: mtr.devops.telekom.de/magenta_canvas/public:secretsmanagement-sidecar-0.1.0
@@ -227,22 +213,19 @@ secretsmanagement-operator:
   policy_name_tpl: "sman-{0}-policy"
   login_role_tpl: "sman-{0}-role"
   secrets_base_path_tpl: "sidecar"
-
   # use autodetection to retreive the value for audience 
   autodetectAudience: true
   # as an alternative it can be retrieved manually and set directly: 
   #   kubectl get --raw /.well-known/openid-configuration | jq -r '.issuer'
   #audience: "https://kubernetes.default.svc.cluster.local"
   #audience: "https://container.googleapis.com/v1/projects/tmforum-oda-component-cluster/locations/europe-west3/clusters/ihc-dt"
-  
+
   # INFO=20, DEBUG=10
   logLevel: 20
-
   # plaintext token for HashiCorp Vault. 
   # In the log files a warning will be shown with the encrypted value, which should be used instead of this 
   hvacToken: egalegal
   # encrpyted token (can be found in logfile)
   # #hvacTokenEnc:
-
 webhooks:
-  image: tmforumodacanvas/compcrdwebhook:0.6.2 
+  image: tmforumodacanvas/compcrdwebhook:0.6.2
