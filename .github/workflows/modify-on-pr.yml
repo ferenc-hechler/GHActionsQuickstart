@@ -17,7 +17,8 @@ jobs:
           fetch-depth: 0 # Let's get all the branches.
       - uses: chrisdickinson/setup-yq@latest
         with:
-          yq-version: 4.44.1
+          yq-version: 'v4.44.1'
+          #yq-url: 'https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_linux_amd64'
       - shell: bash
         run: |
           PRERELEASE=$(yq '.secretsmanagement-operator.prereleaseSuffix' charts/canvas-oda/values.yaml)
