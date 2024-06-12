@@ -5,23 +5,18 @@
     context:
       runs-on: ubuntu-latest
       steps:  
-        - name: Check image
-          id: image_exists
-          uses: cloudposse/github-action-docker-image-exists@main
-          continue-on-error: true  
+        - name: Check if image exist
+          # https://github.com/marketplace/actions/docker-exist-action
+          id: is_image_exist
+          uses: KerberosMorphy/docker-exist-action@v1.1.1
           with:
-            registry: registry.hub.docker.com
-            organization: ocfork
-            repository: secretsmanagement-operator
-            #login: "${{ secrets.DOCKERHUB_USERNAME }}"
-            #password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-            tag: "0.1.0-x"
-        - name: show results
-          run: |
-            echo conclusion=${{ steps.image_exists.conclusion }}
-            # conclusion=success
-            echo image=${{ steps.image_exists.outputs.image }}
-            # image=registry.hub.docker.com/ocfork/secretsmanagement-operator
-            echo tag=${{ steps.image_exists.outputs.tag }}          
-            #tag=0.1.0 
-
+            registry: docker.io
+            #username: ${{ secrets.DOCKER_USERNAME }}
+            #password: ${{ secrets.DOCKER_PASSWORD }}
+            image: ocfork/secretsmanagement-operator>0.1.0
+        - name: Publish Image if not exist
+          if: ((!steps.is_image_exist.outputs.image_exist))
+          run: echo "image does not exist"
+        - name: Show error if image already exists
+          if: ((steps.is_image_exist.outputs.image_exist))
+          run: echo "image already exist"
