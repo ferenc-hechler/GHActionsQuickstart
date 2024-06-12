@@ -15,7 +15,7 @@
             password: ${{ secrets.DOCKERHUB_TOKEN }}
             image: ocfork/secretsmanagement-operator:0.1.0-x
         - name: show-result
-          run: echo {{ steps.is_image_exist.outputs.image_exist }}
+          run: echo ${{ steps.is_image_exist.outputs.image_exist }}
         - name: Publish Image if not exist
           if: ((!steps.is_image_exist.outputs.image_exist))
           run: echo "image does not exist"
