@@ -12,9 +12,9 @@
           with:
             registry: registry.hub.docker.com
             organization: ocfork
-            repository: ocfork/secretsmanagement-operator
-            login: "${{ secrets.DOCKERHUB_USERNAME }}"
-            password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+            repository: secretsmanagement-operator
+            #login: "${{ secrets.DOCKERHUB_USERNAME }}"
+            #password: "${{ secrets.DOCKERHUB_PASSWORD }}"
             tag: "0.1.0"
         - name: show results
           run: |
