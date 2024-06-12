@@ -11,8 +11,8 @@
           uses: KerberosMorphy/docker-exist-action@v1.1.1
           with:
             registry: docker.io
-            #username: ${{ secrets.DOCKER_USERNAME }}
-            #password: ${{ secrets.DOCKER_PASSWORD }}
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
             image: ocfork/secretsmanagement-operator>0.1.0-x
         - name: Publish Image if not exist
           if: ((!steps.is_image_exist.outputs.image_exist))
