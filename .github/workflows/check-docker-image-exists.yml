@@ -4,11 +4,11 @@
   jobs:
     context:
       runs-on: ubuntu-latest
-      continue-on-error: true  
       steps:  
         - name: Check image
           id: image_exists
           uses: cloudposse/github-action-docker-image-exists@main
+          continue-on-error: true  
           with:
             registry: registry.hub.docker.com
             organization: ocfork
