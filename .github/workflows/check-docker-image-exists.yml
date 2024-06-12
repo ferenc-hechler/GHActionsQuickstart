@@ -17,8 +17,8 @@
         - name: show-result
           run: echo ${{ steps.is_image_exist.outputs.image_exist }}
         - name: Publish Image if not exist
-          if: ((!steps.is_image_exist.outputs.image_exist))
+          if: steps.is_image_exist.outputs.image_exist!=1
           run: echo "image does not exist"
         - name: Show error if image already exists
-          if: ((steps.is_image_exist.outputs.image_exist))
+          if: steps.is_image_exist.outputs.image_exist==1
           run: echo "image already exist"
