@@ -15,10 +15,13 @@
             repository: secretsmanagement-operator
             #login: "${{ secrets.DOCKERHUB_USERNAME }}"
             #password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-            tag: "0.1.0"
+            tag: "0.1.0-x"
         - name: show results
           run: |
-            echo conclusion=${{ steps.image_exists.conclusion }}  
+            echo conclusion=${{ steps.image_exists.conclusion }}
+            # conclusion=success
             echo image=${{ steps.image_exists.outputs.image }}
+            # image=registry.hub.docker.com/ocfork/secretsmanagement-operator
             echo tag=${{ steps.image_exists.outputs.tag }}          
+            #tag=0.1.0 
 
