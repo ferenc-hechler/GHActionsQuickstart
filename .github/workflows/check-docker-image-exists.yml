@@ -1,0 +1,24 @@
+  name: check docker image exists
+  on:
+    push:
+  jobs:
+    context:
+      runs-on: ubuntu-latest
+      continue-on-error: true  
+      steps:  
+        - name: Check image
+          id: image_exists
+          uses: cloudposse/github-action-docker-image-exists@main
+          with:
+            registry: registry.hub.docker.com
+            organization: ocfork
+            repository: ocfork/secretsmanagement-operator
+            login: "${{ secrets.DOCKERHUB_USERNAME }}"
+            password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+            tag: "0.1.0"
+        - name: show results
+          run: |
+            echo conclusion=${{ steps.image_exists.conclusion }}  
+            echo image=${{ steps.image_exists.outputs.image }}
+            echo tag=${{ steps.image_exists.outputs.tag }}          
+
