@@ -13,7 +13,7 @@
             registry: docker.io
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
-            image: ocfork/secretsmanagement-operator:0.1.0
+            image: ocfork/secretsmanagement-operator:0.1.0-x
         - name: Publish Image if not exist
           if: ((!steps.is_image_exist.outputs.image_exist))
           run: echo "image does not exist"
